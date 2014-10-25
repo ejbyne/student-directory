@@ -12,8 +12,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to file"
+  puts "4. Load the list from file"
   puts "9. Exit"
 end
 
@@ -35,7 +35,9 @@ def process(selection)
  end
 
 def save_students
-  CSV.open("students.csv", "wb") do |csv|
+  puts "Choose file to save to"
+  save_file = STDIN.gets.chomp
+  CSV.open(save_file, "wb") do |csv|
     @students.each do |student|
       csv << [student[:name], student[:cohort], student[:hobbies], student[:birth_country], student[:height]]
     end
@@ -54,8 +56,18 @@ def try_load_students
   end
 end
 
-def load_students(filename = "students.csv")
-  CSV.foreach(filename) do |line|
+def load_students(filename = nil)
+  if filename != nil
+    chosen_file = filename
+  else
+    puts "Choose file to load"
+    chosen_file = STDIN.gets.chomp
+    until File.exists?(chosen_file)
+      puts "File doesn't exist. Choose another file"
+      chosen_file = gets.chomp
+    end
+  end
+  CSV.foreach(chosen_file) do |line|
   	name, cohort, hobbies, birth_country, height = line
   	add_students(name, cohort, hobbies, birth_country, height)
   end

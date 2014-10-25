@@ -1,3 +1,5 @@
+require 'csv'
+
 @students = []
 
 def interactive_menu
@@ -33,11 +35,9 @@ def process(selection)
  end
 
 def save_students
-  file = File.open("students.csv", "w") do |f|
+  CSV.open("students.csv", "wb") do |csv|
     @students.each do |student|
-  	  student_data = [student[:name], student[:cohort], student[:hobbies], student[:birth_country], student[:height]]
-  	  csv_line = student_data.join(", ")
-  	  f.puts csv_line
+      csv << [student[:name], student[:cohort], student[:hobbies], student[:birth_country], student[:height]]
     end
   end
 end
@@ -55,11 +55,9 @@ def try_load_students
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r") do |f|
-    f.readlines.each do |line|
-  	  name, cohort, hobbies, birth_country, height = line.chomp.split(", ")
-  	  add_students(name, cohort, hobbies, birth_country, height)
-    end
+  CSV.foreach(filename) do |line|
+  	name, cohort, hobbies, birth_country, height = line
+  	add_students(name, cohort, hobbies, birth_country, height)
   end
 end
 

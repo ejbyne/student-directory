@@ -66,48 +66,46 @@ end
 def input_students
   print "Please enter the names of the students\n"
   print "To finish, just hit return twice\n"
-  # get the first name
   name = STDIN.gets.gsub("\n", "")
-  #while the name is not empty, repeat this code
   while !name.empty? do
-    #add the student hash to the array
-    while true
-    print "Please enter the student's cohort\n"
-    cohort_input = STDIN.gets.chomp.downcase
-      if cohort_input.empty?
-        cohort = :unknown
-        break
-      elsif cohort_input == "january" || cohort_input == "february" || cohort_input == "march" || cohort_input == "april" || cohort_input == "may" || cohort_input == "june" || cohort_input == "july" || cohort_input == "august" || cohort_input == "september" || cohort_input == "october" || cohort_input == "november" || cohort_input == "december"
-        cohort = cohort_input.to_sym
-        break
-      else
-        print "Cohort not recognised\n"
-      end
-    end
-    print "Please enter the student's hobbies\n"
-    hobbies = STDIN.gets.chomp
-    print "Please enter the student's country of birth\n"
-    birth_country = STDIN.gets.chomp
-    print "Please enter the student's height\n"
-    height = STDIN.gets.chomp
-    @students << {
-      :name => name,
-      :cohort => cohort,
-      :hobbies => hobbies,
-      :birth_country => birth_country,
-      :height => height
-    }
+  	cohort = cohort_details
+  	hobbies, birth_country, height = other_details
+    @students << { :name => name, :cohort => cohort, :hobbies => hobbies, :birth_country => birth_country, :height => height}
     print "Now we have #{@students.length} "
     if @students.length > 1
   	  print "students\n"
     else
   	  print "student\n"
     end
-    #get another name from the user
     name = STDIN.gets.gsub("\n", "")
   end
-  # return the array of students
-  @students
+  return @students
+end
+
+def cohort_details
+  while true
+    print "Please enter the student's cohort\n"
+    cohort_input = STDIN.gets.chomp.downcase
+    if cohort_input.empty?
+      cohort = :unknown
+      return cohort
+    elsif cohort_input == "january" || cohort_input == "february" || cohort_input == "march" || cohort_input == "april" || cohort_input == "may" || cohort_input == "june" || cohort_input == "july" || cohort_input == "august" || cohort_input == "september" || cohort_input == "october" || cohort_input == "november" || cohort_input == "december"
+      cohort = cohort_input.to_sym
+      return cohort
+    else
+      print "Cohort not recognised\n"
+    end
+  end
+end
+
+def other_details
+  print "Please enter the student's hobbies\n"
+  hobbies = STDIN.gets.chomp
+  print "Please enter the student's country of birth\n"
+  birth_country = STDIN.gets.chomp
+  print "Please enter the student's height\n"
+  height = STDIN.gets.chomp
+  return hobbies, birth_country, height
 end
 
 def show_students

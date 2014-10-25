@@ -58,7 +58,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   	name, cohort, hobbies, birth_country, height = line.chomp.split(", ")
-  	@students << {:name => name, :cohort => cohort.to_sym, :hobbies => hobbies, :birth_country => birth_country, :height => height}
+  	add_students(name, cohort, hobbies, birth_country, height)
   end
   file.close
 end
@@ -70,7 +70,7 @@ def input_students
   while !name.empty? do
   	cohort = cohort_details
   	hobbies, birth_country, height = other_details
-    @students << { :name => name, :cohort => cohort, :hobbies => hobbies, :birth_country => birth_country, :height => height}
+    add_students(name, cohort, hobbies, birth_country, height)
     print "Now we have #{@students.length} "
     if @students.length > 1
   	  print "students\n"
@@ -80,6 +80,10 @@ def input_students
     name = STDIN.gets.gsub("\n", "")
   end
   return @students
+end
+
+def add_students(name, cohort, hobbies, birth_country, height)
+  @students << {:name => name, :cohort => cohort.to_sym, :hobbies => hobbies, :birth_country => birth_country, :height => height}
 end
 
 def cohort_details

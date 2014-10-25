@@ -25,7 +25,9 @@ end
 
 def print_list(students)
   students.each_with_index do |student, i|
-    print "#{i+1}. #{student[:name]} (#{student[:cohort]} cohort)\n"
+    if student[:name].chars.first.capitalize == "A"
+      print "#{i+1}. #{student[:name]} (#{student[:cohort]} cohort)\n"
+    end
   end
 end
 

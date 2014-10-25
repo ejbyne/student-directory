@@ -5,7 +5,7 @@ def input_students
   # create an empty array
   students = []
   # get the first name
-  name = gets.chomp
+  name = gets.gsub("\n", "")
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
@@ -42,7 +42,7 @@ def input_students
   	  print "student\n"
     end
     #get another name from the user
-    name = gets.chomp
+    name = gets.gsub("\n", "")
   end
   # return the array of students
   students

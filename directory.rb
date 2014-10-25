@@ -33,13 +33,13 @@ def process(selection)
  end
 
 def save_students
-  file = File.open("students.csv", "w")
-  @students.each do |student|
-  	student_data = [student[:name], student[:cohort], student[:hobbies], student[:birth_country], student[:height]]
-  	csv_line = student_data.join(", ")
-  	file.puts csv_line
+  file = File.open("students.csv", "w") do |f|
+    @students.each do |student|
+  	  student_data = [student[:name], student[:cohort], student[:hobbies], student[:birth_country], student[:height]]
+  	  csv_line = student_data.join(", ")
+  	  f.puts csv_line
+    end
   end
-  file.close
 end
 
 def try_load_students
@@ -55,12 +55,12 @@ def try_load_students
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  	name, cohort, hobbies, birth_country, height = line.chomp.split(", ")
-  	add_students(name, cohort, hobbies, birth_country, height)
+  file = File.open(filename, "r") do |f|
+    f.readlines.each do |line|
+  	  name, cohort, hobbies, birth_country, height = line.chomp.split(", ")
+  	  add_students(name, cohort, hobbies, birth_country, height)
+    end
   end
-  file.close
 end
 
 def input_students

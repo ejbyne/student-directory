@@ -48,11 +48,13 @@ def print_header
   puts "------------------".center(100)
 end
 
-def print_list(students)
-  i = 0
-  while i < students.length
-    puts "#{i+1}. #{students[i][:name]} (#{students[i][:cohort]} cohort; hobbies: #{students[i][:hobbies]}; country of birth: #{students[i][:birth_country]}; height: #{students[i][:height]})".center(100)
-    i += 1
+def print_list(students, cohort_choice)
+  x = 1
+  students.each do |student|
+    if student[:cohort].to_s == cohort_choice
+      puts "#{x}. #{student[:name]} (#{student[:cohort]} cohort; hobbies: #{student[:hobbies]}; country of birth: #{student[:birth_country]}; height: #{student[:height]})".center(100)
+      x += 1
+    end
   end
 end
 
@@ -62,5 +64,5 @@ end
 
 students = input_students
 print_header
-print_list(students)
+print_list(students, "october")
 print_footer(students)

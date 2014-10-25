@@ -54,21 +54,27 @@ def print_header
 end
 
 def print_list(students, cohort_choice)
-  x = 1
-  students.each do |student|
-    if student[:cohort].to_s == cohort_choice
-      puts "#{x}. #{student[:name]} (#{student[:cohort]} cohort; hobbies: #{student[:hobbies]}; country of birth: #{student[:birth_country]}; height: #{student[:height]})".center(100)
-      x += 1
+  if students.length > 0
+    x = 1
+    students.each do |student|
+      if student[:cohort].to_s == cohort_choice
+        puts "#{x}. #{student[:name]} (#{student[:cohort]} cohort; hobbies: #{student[:hobbies]}; country of birth: #{student[:birth_country]}; height: #{student[:height]})".center(100)
+        x += 1
+      end
     end
+  else
+  	puts "No students to list".center(100)
   end
 end
 
 def print_footer(students)
-  print "Overall, we have #{students.length} great "
-  if students.length > 1
-  	print "students\n"
-  else
-  	print "student\n"
+  if students.length > 0
+    print "Overall, we have #{students.length} great "
+    if students.length > 1
+  	  print "students\n"
+    else
+  	  print "student\n"
+    end
   end
 end
 

@@ -31,14 +31,14 @@ def input_students
 end
 
 def print_header
-  print "The students of my cohort at Makers Academy\n"
-  print "------------------\n"
+  puts "The students of my cohort at Makers Academy".center(100)
+  puts "------------------".center(100)
 end
 
 def print_list(students)
   i = 0
   while i < students.length
-    print "#{i+1}. #{students[i][:name]} (#{students[i][:cohort]} cohort; hobbies: #{students[i][:hobbies]}; country of birth: #{students[i][:birth_country]}; height: #{students[i][:height]})\n"
+    puts "#{i+1}. #{students[i][:name]} (#{students[i][:cohort]} cohort; hobbies: #{students[i][:hobbies]}; country of birth: #{students[i][:birth_country]}; height: #{students[i][:height]})".center(100)
     i += 1
   end
 end

@@ -35,7 +35,12 @@ def input_students
       :birth_country => birth_country,
       :height => height
     }
-    print "Now we have #{students.length} students\n"
+    print "Now we have #{students.length} "
+    if students.length > 1
+  	  print "students\n"
+    else
+  	  print "student\n"
+    end
     #get another name from the user
     name = gets.chomp
   end
@@ -59,7 +64,12 @@ def print_list(students, cohort_choice)
 end
 
 def print_footer(students)
-  print "Overall, we have #{students.length} great students\n"
+  print "Overall, we have #{students.length} great "
+  if students.length > 1
+  	print "students\n"
+  else
+  	print "student\n"
+  end
 end
 
 students = input_students

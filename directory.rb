@@ -1,9 +1,34 @@
-#Let's put all students into an array
+@students = []
+
+def interactive_menu
+  loop do
+  	print_menu
+  	process(gets.chomp)
+  end
+end
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def process(selection)
+  case selection
+  	when "1"
+  	  @students = input_students
+  	when "2"
+  	 show_students
+  	when "9"
+  	 exit
+  	else
+  	 puts "I don't know what you mean, try again"
+   end
+ end
+
 def input_students
   print "Please enter the names of the students\n"
   print "To finish, just hit return twice\n"
-  # create an empty array
-  students = []
   # get the first name
   name = gets.gsub("\n", "")
   #while the name is not empty, repeat this code
@@ -28,15 +53,15 @@ def input_students
     birth_country = gets.chomp
     print "Please enter the student's height\n"
     height = gets.chomp
-    students << {
+    @students << {
       :name => name,
       :cohort => cohort,
       :hobbies => hobbies,
       :birth_country => birth_country,
       :height => height
     }
-    print "Now we have #{students.length} "
-    if students.length > 1
+    print "Now we have #{@students.length} "
+    if @students.length > 1
   	  print "students\n"
     else
   	  print "student\n"
@@ -45,7 +70,13 @@ def input_students
     name = gets.gsub("\n", "")
   end
   # return the array of students
-  students
+  @students
+end
+
+def show_students
+  print_header
+  print_students_list
+  print_footer
 end
 
 def print_header
@@ -53,24 +84,22 @@ def print_header
   puts "------------------".center(100)
 end
 
-def print_list(students, cohort_choice)
-  if students.length > 0
+def print_students_list
+  if @students.length > 0
     x = 1
-    students.each do |student|
-      if student[:cohort].to_s == cohort_choice
-        puts "#{x}. #{student[:name]} (#{student[:cohort]} cohort; hobbies: #{student[:hobbies]}; country of birth: #{student[:birth_country]}; height: #{student[:height]})".center(100)
-        x += 1
-      end
+    @students.each do |student|
+      puts "#{x}. #{student[:name]} (#{student[:cohort]} cohort; hobbies: #{student[:hobbies]}; country of birth: #{student[:birth_country]}; height: #{student[:height]})".center(100)
+      x += 1
     end
   else
   	puts "No students to list".center(100)
   end
 end
 
-def print_footer(students)
-  if students.length > 0
-    print "Overall, we have #{students.length} great "
-    if students.length > 1
+def print_footer
+  if @students.length > 0
+    print "Overall, we have #{@students.length} great "
+    if @students.length > 1
   	  print "students\n"
     else
   	  print "student\n"
@@ -78,7 +107,5 @@ def print_footer(students)
   end
 end
 
-students = input_students
-print_header
-print_list(students, "october")
-print_footer(students)
+interactive_menu
+

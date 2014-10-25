@@ -9,6 +9,19 @@ def input_students
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
+    while true
+    print "Please enter the student's cohort\n"
+    cohort_input = gets.chomp.downcase
+      if cohort_input.empty?
+        cohort = :unknown
+        break
+      elsif cohort_input == "january" || cohort_input == "february" || cohort_input == "march" || cohort_input == "april" || cohort_input == "may" || cohort_input == "june" || cohort_input == "july" || cohort_input == "august" || cohort_input == "september" || cohort_input == "october" || cohort_input == "november" || cohort_input == "december"
+        cohort = cohort_input.to_sym
+        break
+      else
+        print "Cohort not recognised\n"
+      end
+    end
     print "Please enter the student's hobbies\n"
     hobbies = gets.chomp
     print "Please enter the student's country of birth\n"
@@ -17,7 +30,7 @@ def input_students
     height = gets.chomp
     students << {
       :name => name,
-      :cohort => :october,
+      :cohort => cohort,
       :hobbies => hobbies,
       :birth_country => birth_country,
       :height => height

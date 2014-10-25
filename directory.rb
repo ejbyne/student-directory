@@ -20,3 +20,6 @@ puts "Simon L"
 puts "Clare T"
 puts "Claudia B"
 puts "Ben C"
+print "Overall, we have "
+print 20
+puts " great students"

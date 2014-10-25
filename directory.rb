@@ -3,7 +3,7 @@
 def interactive_menu
   loop do
   	print_menu
-  	process(gets.chomp)
+  	process(STDIN.gets.chomp)
   end
 end
 
@@ -42,9 +42,20 @@ def save_students
   file.close
 end
 
-def load_students
-  @students = []
-  file = File.open("students.csv", "r")
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+  	load_students(filename)
+  	puts "Loaded #{@students.length} from #{filename}"
+  else
+  	puts "Sorry, #{filename} doesn't exist."
+  	exit
+  end
+end
+
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   	name, cohort, hobbies, birth_country, height = line.chomp.split(", ")
   	@students << {:name => name, :cohort => cohort.to_sym, :hobbies => hobbies, :birth_country => birth_country, :height => height}
@@ -56,13 +67,13 @@ def input_students
   print "Please enter the names of the students\n"
   print "To finish, just hit return twice\n"
   # get the first name
-  name = gets.gsub("\n", "")
+  name = STDIN.gets.gsub("\n", "")
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
     while true
     print "Please enter the student's cohort\n"
-    cohort_input = gets.chomp.downcase
+    cohort_input = STDIN.gets.chomp.downcase
       if cohort_input.empty?
         cohort = :unknown
         break
@@ -74,11 +85,11 @@ def input_students
       end
     end
     print "Please enter the student's hobbies\n"
-    hobbies = gets.chomp
+    hobbies = STDIN.gets.chomp
     print "Please enter the student's country of birth\n"
-    birth_country = gets.chomp
+    birth_country = STDIN.gets.chomp
     print "Please enter the student's height\n"
-    height = gets.chomp
+    height = STDIN.gets.chomp
     @students << {
       :name => name,
       :cohort => cohort,
@@ -93,7 +104,7 @@ def input_students
   	  print "student\n"
     end
     #get another name from the user
-    name = gets.gsub("\n", "")
+    name = STDIN.gets.gsub("\n", "")
   end
   # return the array of students
   @students
@@ -106,7 +117,7 @@ def show_students
 end
 
 def print_header
-  puts "The students of my cohort at Makers Academy".center(100)
+  puts "The students of the cohorts at Makers Academy".center(100)
   puts "------------------".center(100)
 end
 
@@ -133,5 +144,6 @@ def print_footer
   end
 end
 
+try_load_students
 interactive_menu
 

@@ -1,10 +1,14 @@
-Student Directory
-=================
+# Student Directory
 
-The student directory script allows you to manage the list of students enrolled on the course at Makers Academy.
+## Summary
 
-How to use
-----------
+This was a Makers Academy pre-course challenge to test our Ruby learning. The student directory script allows you to manage a list of students enrolled on the course at Makers Academy.
+
+## Technologies used
+
+- Ruby
+
+## How to use
 
 ```shell
 ruby directory.rb
